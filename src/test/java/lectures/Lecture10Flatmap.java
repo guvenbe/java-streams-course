@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import org.junit.Before;
 import org.junit.Test;
 
-public class Lecture10 {
+public class Lecture10Flatmap {
 
   private static final List<ArrayList<String>> arrayListOfNames = Lists.newArrayList(
       Lists.newArrayList("Mariam", "Alex", "Ismail"),
@@ -24,13 +24,21 @@ public class Lecture10 {
   @Test
   public void withoutFlatMap() throws Exception {
 //    [Mariam, Alex, Ismail, John, Alesha, Andre, Susy, Ali]
+    List<String> names = new ArrayList<>();
+    for (ArrayList<String> arrayListOfName : arrayListOfNames) {
+      names.addAll(arrayListOfName);
+    }
+    System.out.println(names);
 
   }
 
   @Test
   public void withFlatMap() throws Exception {
 //   [Mariam, Alex, Ismail, John, Alesha, Andre, Susy, Ali]
-
+    List<String> nameList = arrayListOfNames.stream()
+        .flatMap(List::stream)
+        .collect(Collectors.toList());
+    System.out.println(nameList);
   }
 
 }
